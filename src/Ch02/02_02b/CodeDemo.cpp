@@ -10,18 +10,23 @@ private:
     double normalDrain;
     double lowPowerDrain;
 
+    static constexpr double lowPoweModeThreshold {20};
 public:
     Battery(double capacity, double normalDrain, double lowPowerDrain)
-    : charge(capacity), normalDrain(lowPowerDrain), lowPowerDrain(lowPowerDrain) {}
+    : charge(capacity), normalDrain(normalDrain), lowPowerDrain(lowPowerDrain) {}
 
     void simulateUsage(int hours){
         for(int i = 1; i <= hours; i++){
-            if(charge > 20)
+            if(charge < 0){
+                charge = 0; // Prevent negative charge
+            }
+            else if(charge > lowPoweModeThreshold){
                 charge -= normalDrain;  // Normal power usage
-            else
+            }
+            else{
                 charge -= lowPowerDrain; // Reduced drain in power-saving mode
-
-            if(charge < 0) charge = 0; // Prevent negative charge
+            }
+            std::cout<<"Current hour: "<<i <<" Charge: "<<charge<<std::endl;
         }
     }
 
