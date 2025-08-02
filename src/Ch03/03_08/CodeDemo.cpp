@@ -10,9 +10,9 @@ using std::vector;
 
 int findLargest(const vector<int>& numbers){
     int largest = std::numeric_limits<int>::min();
-    for (auto it = std::begin(numbers); it < std::end(numbers); it += 3){
+    for (auto it = std::begin(numbers); it < std::end(numbers); it ++){
         if (*it > largest)
-            largest == *it;
+            largest = *it;
     }
     return largest;
 }
