@@ -5,11 +5,12 @@
 #include <iostream>
 
 double power(double base, int exponent){
-    double result, *x = nullptr;
+    double result;
     if(exponent == 0) 
         result = 1;
-    result = base * power(base, exponent - 1);
-    return *x;
+    else
+        result = base * power(base, exponent - 1);
+    return result;
 }
 
 int main(){
