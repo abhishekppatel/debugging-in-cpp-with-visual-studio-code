@@ -5,6 +5,9 @@
 #include <iostream>
 #include <sstream>
 
+#define SUCCESS 0
+#define FAILURE 1
+
 int main(){
     char op;
     int num1, num2;
@@ -14,10 +17,21 @@ int main(){
         std::string input;
         std::getline(std::cin, input);
 
-        if(input == "q") break;
+        if(input == "q") 
+            exit(SUCCESS);
 
         std::istringstream iss(input);
-        iss >> num1 >> op >> num2; 
+        if(!(iss >> num1 >> op >> num2))
+        {
+            std::cerr<<"Error invalid input format!"<<std::endl<<std::endl;
+            exit(FAILURE);
+        }; 
+
+        if(op == '/' && num2 == 0)
+        {
+            std::cerr<<"Divison by zero."<<std::endl<<std::endl;
+            exit(FAILURE);
+        }
 
         switch(op){
             case '+': std::cout << "Result: " << num1 + num2 << std::endl; break;
